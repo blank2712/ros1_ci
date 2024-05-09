@@ -4,9 +4,9 @@ pipeline {
     stages {
         stage('Create workspace and build') {
             steps {
-                sh 'mkdir -p ~/ros1Jenkins_ws/src'
+                sh 'mkdir -p ~/ros_jenkins_ws/src'
                 sh '''
-                cd ~/ros1Jenkins_ws
+                cd ~/ros_jenkins_ws
                 source /opt/ros/noetic/setup.bash
                 catkin_make
                 '''
@@ -15,17 +15,18 @@ pipeline {
         stage('Will check if we need to clone or just pull') {
             steps {
                 script {
-                    dir('/home/user/ros1Jenkins_ws/src')
-                    // Comprueba si el directorio move_and_turn ya existe
-                    if (!fileExists('ros1_ci')) {
-                        // Si no existe, clona el repositorio
-                        sh 'git clone https://github.com/morg1207/ros1_ci.git'
-                        echo 'Repositorio clonado exitosamente.'
-                    } else {
-                        // Si existe, cambia al directorio y realiza un pull para actualizar
-                        dir('ros1_ci') {
-                            sh 'git pull origin master'
-                            echo 'Repositorio actualizado exitosamente.'
+                    // Cambiar al directorio de trabajo
+                    dir('/home/user/ros_jenkins_ws/src') {
+                        echo 'Will check if we need to clone or just pull'
+                        // Comprobar si el directorio move_and_turn ya existe
+                        if (!fileExists('ros1_ci')) {
+                            // Si no existe, clonar el repositorio
+                            sh 'git clone https://github.com/morg1207/ros1_ci.git'
+                        } else {
+                            // Si existe, cambiar al directorio y realizar un pull para actualizar
+                            dir('ros1_ci') {
+                                sh 'git pull origin master'
+                            }
                         }
                     }
                 }
@@ -34,7 +35,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 sh '''
-                cd ~/ros1Jenkins_ws/src/ros1_ci 
+                cd ~/ros_jenkins_ws/src/ros1_ci 
                 docker build -t tortoisebot_test .
                 '''
             }
