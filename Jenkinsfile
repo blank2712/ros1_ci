@@ -6,9 +6,9 @@ pipeline {
             steps {
                 sh 'mkdir -p ~/ros1Jenkins_ws/src'
                 sh '''
-                    cd ~/ros1Jenkins_ws
-                    source /opt/ros/noetic/setup.bash'
-                    catkin_make
+                cd ~/ros1Jenkins_ws
+                source /opt/ros/noetic/setup.bash'
+                catkin_make
                 '''
             }
         }
