@@ -12,7 +12,7 @@ pipeline {
                 '''
             }
         }
-        stage('echo "Will check if we need to clone or just pull"') {
+        stage('Will check if we need to clone or just pull') {
             steps {
                 script {
                     dir('/home/user/ros1Jenkins_ws/src')
