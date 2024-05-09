@@ -51,7 +51,7 @@ pipeline {
 
             }
         }
-        state('Run waypoint test'){
+        stage('Run waypoint test') {
             steps {
                 sh '''
                 sudo usermod -aG docker $USER
@@ -61,8 +61,6 @@ pipeline {
                 '''
 
             }
-        
-        
         }
         stage('Done') {
             steps {
