@@ -62,10 +62,7 @@ pipeline {
                 sh '''
                 sudo usermod -aG docker $USER
                 newgrp docker
-                docker exec tortoisebot_container bash
-                source /opt/ros/noetic/setup.bash
-                source ~/catkin_ws/devel/setup.bash
-                rostest tortoisebot_waypoints waypoints_test.test --reuse-master
+                docker exec tortoisebot_container /bin/bash -c ". /opt/ros/noetic/setup.bash && . catkin_ws/devel/setup.bash && rostest tortoisebot_waypoints waypoints_test.test --reuse-master"
                 '''
 
             }
