@@ -41,7 +41,7 @@ pipeline {
                 sudo usermod -aG docker $USER
                 newgrp docker
                 cd ~/ros_jenkins_ws/src/ros1_ci 
-                docker build -t tortoisebot_test .
+                sudo docker build -t tortoisebot_test .
                 '''
             }
         }
