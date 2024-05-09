@@ -47,9 +47,22 @@ pipeline {
         }
         stage('Create container') {
             steps {
-                sh 'docker run --rm tortoisebot_test:latest -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix bash -c "rostest tortoisebot_waypoints waypoints_test.test --reuse-master" '
+                sh 'docker run --rm tortoisebot_test:latest -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix'
 
             }
+        }
+        state('Run waypoint test'){
+            steps {
+                sh '''
+                sudo usermod -aG docker $USER
+                newgrp docker
+                docker exec tortoisebot_container bash
+                rostest tortoisebot_waypoints waypoints_test.test --reuse-master
+                '''
+
+            }
+        
+        
         }
         stage('Done') {
             steps {
