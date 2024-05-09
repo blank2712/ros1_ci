@@ -64,7 +64,7 @@ pipeline {
                 docker exec tortoisebot_container bash
                 source /opt/ros/noetic/setup.bash
                 source ~/catkin_ws/devel/setup.bash
-                rostest tortoisebot_waypoints waypoints_test.test --reuse-master
+                rostest tortoisebot_waypoints_ros1_test waypoints_test.test --reuse-master
                 '''
 
             }
