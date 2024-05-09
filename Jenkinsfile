@@ -23,6 +23,7 @@ pipeline {
                             sh 'git pull origin master'
                         }
                     }
+                }
             }
         }
         stage('build docker image') {
