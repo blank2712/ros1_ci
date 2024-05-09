@@ -1,13 +1,13 @@
 
 pipeline {
     agent any 
-    stages('build') {
+    stages() {
         stage('Create workspace and build') {
             steps {
                 sh 'mkdir -p ~/ros1Jenkins_ws/src'
                 sh '''
                 cd ~/ros1Jenkins_ws
-                source /opt/ros/noetic/setup.bash'
+                source /opt/ros/noetic/setup.bash
                 catkin_make
                 '''
             }
