@@ -6,6 +6,7 @@ pipeline {
             steps {
                 sh 'mkdir -p ~/catkin_ws/src'
                 sh 'cd ~/catkin_ws'
+                sh 'source /opt/ros/noetic/setup.bash'
                 sh 'catkin_make'
             }
         }
