@@ -47,7 +47,7 @@ pipeline {
         }
         stage('Create container') {
             steps {
-                sh 'docker run --rm tortoisebot_test:latest -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix bash -c "rostest tortoisebot_waypoints waypoints_test.test" '
+                sh 'docker run --rm tortoisebot_test:latest -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix bash -c "rostest tortoisebot_waypoints waypoints_test.test --reuse-master" '
 
             }
         }
