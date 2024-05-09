@@ -4,15 +4,15 @@ pipeline {
     stages('build') {
         stage('Create workspace and build') {
             steps {
-                sh 'mkdir -p ~/catkin_ws/src'
-                sh 'cd ~/catkin_ws'
+                sh 'mkdir -p ~/ros1Jenkins_ws/src'
+                sh 'cd ~/ros1Jenkins_w'
                 sh 'source /opt/ros/noetic/setup.bash'
                 sh 'catkin_make'
             }
         }
         stage('echo "Will check if we need to clone or just pull"') {
             steps {
-                sh 'cd /home/user/catkin_ws/src'
+                sh 'cd /home/user/ros1Jenkins_w/src'
                 script {
                     // Comprueba si el directorio move_and_turn ya existe
                     if (!fileExists('ros1_ci')) {
@@ -30,7 +30,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 sh '''
-                cd ~/catkin_ws/src/ros1_ci 
+                cd ~/ros1Jenkins_w/src/ros1_ci 
                 docker build -t tortoisebot_test .
                 '''
             }
