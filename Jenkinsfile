@@ -20,10 +20,12 @@ pipeline {
                     if (!fileExists('ros1_ci')) {
                         // Si no existe, clona el repositorio
                         sh 'git clone https://github.com/morg1207/ros1_ci.git'
+                        echo 'Repositorio clonado exitosamente.'
                     } else {
                         // Si existe, cambia al directorio y realiza un pull para actualizar
                         dir('ros1_ci') {
                             sh 'git pull origin master'
+                            echo 'Repositorio actualizado exitosamente.'
                         }
                     }
                 }
