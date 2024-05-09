@@ -1,7 +1,7 @@
 
 pipeline {
     agent any 
-    stages() {
+    stages {
         stage('Create workspace and build') {
             steps {
                 sh 'mkdir -p ~/ros1Jenkins_ws/src'
@@ -13,22 +13,17 @@ pipeline {
             }
         }
         stage('Will check if we need to clone or just pull') {
-            steps {
-                script {
-                    dir('/home/user/ros1Jenkins_ws/src')
-                    // Comprueba si el directorio move_and_turn ya existe
-                    if (!fileExists('ros1_ci')) {
-                        // Si no existe, clona el repositorio
-                        sh 'git clone https://github.com/morg1207/ros1_ci.git'
-                        echo 'Repositorio clonado exitosamente.'
-                    } else {
-                        // Si existe, cambia al directorio y realiza un pull para actualizar
-                        dir('ros1_ci') {
-                            sh 'git pull origin master'
-                            echo 'Repositorio actualizado exitosamente.'
-                        }
-                    }
-                }
+            dir('/home/user/ros1Jenkins_ws/src')
+            // Comprueba si el directorio move_and_turn ya existe
+            if (!fileExists('ros1_ci')) {
+                // Si no existe, clona el repositorio
+                sh 'git clone https://github.com/morg1207/ros1_ci.git'
+                echo 'Repositorio clonado exitosamente.'
+            } else {
+                // Si existe, cambia al directorio y realiza un pull para actualizar
+                dir('ros1_ci') 
+                sh 'git pull origin master'
+                echo 'Repositorio actualizado exitosamente.'
             }
         }
         stage('build docker image') {
