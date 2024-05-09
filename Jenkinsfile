@@ -47,7 +47,12 @@ pipeline {
         }
         stage('Create container') {
             steps {
-                sh 'docker run --rm tortoisebot_test:latest -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix'
+                
+                sh '''
+                sudo usermod -aG docker $USER
+                newgrp docker
+                docker run --rm --name tortoisebot_container -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix tortoisebot_test:latest bash
+                '''
 
             }
         }
