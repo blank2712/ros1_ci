@@ -51,7 +51,7 @@ pipeline {
                 sh '''
                 sudo usermod -aG docker $USER
                 newgrp docker
-                docker run --rm --name tortoisebot_container -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix tortoisebot_test:latest bash &
+                docker run --rm --name tortoisebot_container -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix tortoisebot_test:latest
                 '''
 
             }
