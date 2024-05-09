@@ -32,9 +32,14 @@ pipeline {
                 }
             }
         }
-        stage('build docker image') {
+        stage(' install and build docker image') {
             steps {
                 sh '''
+                sudo apt-get update
+                sudo apt-get install docker.io docker-compose
+                sudo service docker start
+                sudo usermod -aG docker $USER
+                newgrp docker
                 cd ~/ros_jenkins_ws/src/ros1_ci 
                 docker build -t tortoisebot_test .
                 '''
