@@ -5,13 +5,13 @@ pipeline {
         stage('Create workspace and build') {
             steps {
                 sh 'mkdir -p ~/catkin_ws/src'
-                sh 'cd ~/ros_jenkins_ws'
+                sh 'cd ~/catkin_ws'
                 sh 'catkin_make'
             }
         }
         stage('echo "Will check if we need to clone or just pull"') {
             steps {
-                sh 'cd /home/user/ros_jenkins_ws/src'
+                sh 'cd /home/user/catkin_ws/src'
                 script {
                     // Comprueba si el directorio move_and_turn ya existe
                     if (!fileExists('ros1_ci')) {
@@ -36,7 +36,7 @@ pipeline {
         }
         stage('Create container') {
             steps {
-                sh 'docker run --rm tortoisebot_test:latest bash -c "rostest tortoisebot_waypoints test_move_and_turn.launch" '
+                sh 'docker run --rm tortoisebot_test:latest bash -c "rostest tortoisebot_waypoints waypoints_test.test" '
 
             }
         }
