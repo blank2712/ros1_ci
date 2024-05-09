@@ -2,18 +2,6 @@
 pipeline {
     agent any 
     stages {
-
-        stage('Install jenkins') {
-            steps {
-                sh '''
-                if [ ! -f /home/user/run_jenkins.sh ]; then
-                    wget -nc https://raw.githubusercontent.com/TheConstructAi/jenkins_demo/master/run_jenkins.sh && sleep 10s && bash run_jenkins.sh
-                fi
-                wget -nc https://raw.githubusercontent.com/TheConstructAi/jenkins_demo/master/setup_ssh_git.sh && bash setup_ssh_git.sh
-                '''
-            }
-        }
-
         stage('Create workspace and build') {
             steps {
                 sh 'mkdir -p ~/ros_jenkins_ws/src'
