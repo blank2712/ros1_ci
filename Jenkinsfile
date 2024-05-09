@@ -63,7 +63,8 @@ pipeline {
         }
         stage('Done') {
             steps {
-                sleep 20
+                sleep 2
+                sh 'sudo docker rm -f tortoisebot_container'
                 echo 'Pipeline completed'
             }
         }
