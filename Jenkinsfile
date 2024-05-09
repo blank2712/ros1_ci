@@ -34,7 +34,7 @@ pipeline {
                 script {
                     // Cambiar al directorio de trabajo
                     dir('/home/user/ros_jenkins_ws/src') {
-                        echo 'Will check if we need to clone or just pull '
+                        echo 'Will check if we need to clone or just pull'
                         // Comprobar si el directorio move_and_turn ya existe
                         if (!fileExists('ros1_ci')) {
                             // Si no existe, clonar el repositorio
