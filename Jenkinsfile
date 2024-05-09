@@ -52,6 +52,7 @@ pipeline {
                 sudo usermod -aG docker $USER
                 newgrp docker
                 docker run --rm --name tortoisebot_container -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix tortoisebot_test:latest bash &
+                
                 '''
 
             }
@@ -64,7 +65,7 @@ pipeline {
                 docker exec tortoisebot_container bash
                 source /opt/ros/noetic/setup.bash
                 source ~/catkin_ws/devel/setup.bash
-                
+                rostest tortoisebot_waypoints waypoints_test.test --reuse-master
                 '''
 
             }
