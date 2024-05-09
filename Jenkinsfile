@@ -38,8 +38,7 @@ pipeline {
                 sudo apt-get update
                 sudo apt-get install docker.io docker-compose -y
                 sudo service docker start
-                sudo usermod -aG docker jenkins
-                sudo service jenkins restart
+                sudo usermod -aG docker user
                 newgrp docker
                 cd ~/ros_jenkins_ws/src/ros1_ci 
                 docker build -t tortoisebot_test .
