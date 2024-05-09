@@ -34,7 +34,7 @@ pipeline {
         }
         stage(' install and build docker image') {
             steps {
-                sh -x'''
+                sh '''
                 sudo apt-get update
                 sudo apt-get install docker.io docker-compose -y
                 sudo service docker start
