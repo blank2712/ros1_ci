@@ -1,41 +1,42 @@
 
 pipeline {
     agent any 
-    stages {
-        stage('Print and list current directory') {
+    stages('build') {
+        stage('Create workspace and build') {
             steps {
-                sh 'pwd'
-                sh 'ls -al'
+                sh 'mkdir -p ~/catkin_ws/src'
+                sh 'cd ~/ros_jenkins_ws'
+                sh 'catkin_make'
             }
         }
-        stage('Show ROS environment variables') {
+        stage('echo "Will check if we need to clone or just pull"') {
             steps {
-                sh 'env | grep ROS'
+                sh 'cd /home/user/ros_jenkins_ws/src'
+                script {
+                    // Comprueba si el directorio move_and_turn ya existe
+                    if (!fileExists('ros1_ci')) {
+                        // Si no existe, clona el repositorio
+                        sh 'git clone https://github.com/morg1207/ros1_ci.git'
+                    } else {
+                        // Si existe, cambia al directorio y realiza un pull para actualizar
+                        dir('ros1_ci') {
+                            sh 'git pull origin master'
+                        }
+                    }
             }
         }
-        stage('Move the robot') {
+        stage('build docker image') {
             steps {
                 sh '''
-                roslaunch publisher_example move.launch &
-                MOVE_ID=$!
-                sleep 30s
-                kill $MOVE_ID
+                cd ~/catkin_ws/src/ros1_ci 
+                docker build -t tortoisebot_test .
                 '''
             }
         }
-        stage('Stop the robot') {
+        stage('Create container') {
             steps {
-                sh '''
-                roslaunch publisher_example stop.launch &
-                STOP_ID=$!
-                sleep 5s
-                kill $STOP_ID
-                '''
-            }
-        }
-        stage('Reset the simulation') {
-            steps {
-                sh 'rosservice call /gazebo/reset_simulation "{}"'
+                sh 'docker run --rm tortoisebot_test:latest bash -c "rostest tortoisebot_waypoints test_move_and_turn.launch" '
+
             }
         }
         stage('Done') {
