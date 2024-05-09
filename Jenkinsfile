@@ -6,15 +6,15 @@ pipeline {
         stage('Install jenkins') {
             steps {
                 sh '''
-                    // Cambiar al directorio de trabajo
-                        // Comprobar si el directorio move_and_turn ya existe
-                    if [ ! -f /home/user/run_jenkins.sh ]; then
+                // Cambiar al directorio de trabajo
+                // Comprobar si el directorio move_and_turn ya existe
+                if [ ! -f /home/user/run_jenkins.sh ]; then
                     wget -nc https://raw.githubusercontent.com/TheConstructAi/jenkins_demo/master/run_jenkins.sh && sleep 10s && bash run_jenkins.sh
-                    fi
-                    if [ ! -f /home/user/run_jenkins.sh ]; then
+                fi
+                if [ ! -f /home/user/run_jenkins.sh ]; then
                     wget -nc https://raw.githubusercontent.com/TheConstructAi/jenkins_demo/master/run_jenkins.sh && sleep 10s && bash run_jenkins.sh
-                    fi
-                    wget -nc https://raw.githubusercontent.com/TheConstructAi/jenkins_demo/master/setup_ssh_git.sh && bash setup_ssh_git.sh
+                fi
+                wget -nc https://raw.githubusercontent.com/TheConstructAi/jenkins_demo/master/setup_ssh_git.sh && bash setup_ssh_git.sh
                 '''
             }
         }
