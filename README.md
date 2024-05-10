@@ -1,6 +1,6 @@
 # STEPS TO TEST TORTOISEBOT AND WAYPOINTS
 
-## Access Jenkins
+### Access Jenkins
 ```
 cd 
 source run_jenkins.sh
@@ -11,7 +11,7 @@ cat jenkins__pid__url.txt
 Username: user
 Password: s@mmd7ca91
 ```
-## Build Jenkins
+### Build Jenkins
 ```
 Enter the following job: tortoisebot_cli
 Build the job
