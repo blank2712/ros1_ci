@@ -17,7 +17,7 @@ Enter the following job: tortoisebot_cli
 Build the job
 ```
 
-# How to push changes into the repository
+# How to push changes a into the repository
 
 Now, you can change something in the code. For example:
 
