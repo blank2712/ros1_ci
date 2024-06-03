@@ -8,7 +8,7 @@ pipeline {
                 script {
                     properties([pipelineTriggers([pollSCM('* * * * *')])])
                 }
-                git branch: 'master', url: 'https://github.com/Combuster54/ros1_ci/'
+                git branch: 'master', url: 'https://github.com/morg1207/ros1_ci/'
             }
         }
         stage('Create workspace and build') {
