@@ -30,7 +30,7 @@ pipeline {
                         git clone https://github.com/morg1207/ros1_ci.git
                     else
                         cd ros1_ci
-                        git pull origin main
+                        git pull origin master
                     fi
                     '''
             }
