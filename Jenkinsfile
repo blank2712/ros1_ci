@@ -23,16 +23,22 @@ pipeline {
         }
         stage('Will check if we need to clone or just pull') {
             steps {
-                sh 'cd ~/ros_jenkins_ws/src'
-                sh '''
-                    #!/bin/bash
-                    if [ ! -d "ros1_ci" ]; then
-                        git clone https://github.com/morg1207/ros1_ci.git
-                    else
-                        cd ros1_ci
-                        git pull origin main
-                    fi
-                    '''
+                script {
+                    // Cambiar al directorio de trabajo
+                    dir('/home/user/ros_jenkins_ws/src') {
+                        echo 'Will check if we need to clone or just pull '
+                        // Comprobar si el directorio move_and_turn ya existe
+                        if (!fileExists('ros1_ci')) {
+                            // Si no existe, clonar el repositorio
+                            sh 'git clone https://github.com/morg1207/ros1_ci.git'
+                        } else {
+                            // Si existe, cambiar al directorio y realizar un pull para actualizar
+                            dir('ros1_ci') {
+                                sh 'git pull origin master'
+                            }
+                        }
+                    }
+                }
             }
         }
         stage(' install and build docker image') {
