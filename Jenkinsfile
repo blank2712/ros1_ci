@@ -26,7 +26,7 @@ pipeline {
                 sh 'cd ~/ros_jenkins_ws/src'
                 sh '''
                     #!/bin/bash
-                    if [ ! -d "ros_jenkins_ws" ]; then
+                    if [ ! -d "ros1_ci" ]; then
                         git clone https://github.com/morg1207/ros1_ci.git
                     else
                         cd ros1_ci
